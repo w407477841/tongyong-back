@@ -1,0 +1,22 @@
+import Layout from '@/views/layout'
+export default [
+    {
+        path: '/${package.ModuleName}/',
+        permission : '${package.ModuleName}:menu',
+        component: Layout,
+        hide:false,
+        alwaysShow: true,
+        name: '${package.ModuleName}-home-page',
+        redirect: '/${package.ModuleName}/${entityLowerCase}',
+        meta: { title: 'DEMO',icon:'el-icon-kaifazhezhongxingongjuxiazai' },
+        children:[
+            {
+                path: '/${package.ModuleName}/${entityLowerCase}',
+                name: '${package.ModuleName}-${entityLowerCase}',
+                permission : '${package.ModuleName}:${entityLowerCase}:menu',
+                meta: { title: 'DEMO-TEST' },
+                component: () => import('@/views/${package.ModuleName}/${entityLowerCase}')
+    }
+]
+}
+]

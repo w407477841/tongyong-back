@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wyf.aftersale.mapper.AsIdeaMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.wyf.aftersale.entity.AsIdea">
+        <id column="id" property="id" />
+    <result column="is_del" property="isDel" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+    <result column="modify_time" property="modifyTime" />
+    <result column="modify_user" property="modifyUser" />
+        <result column="phone" property="phone" />
+        <result column="idea_content" property="ideaContent" />
+        <result column="feedback_content" property="feedbackContent" />
+        <result column="status" property="status" />
+        <result column="feedback_status" property="feedbackStatus" />
+        <result column="comments" property="comments" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        is_del,
+        create_time,
+        create_user,
+        modify_time,
+        modify_user,
+        id, phone, idea_content, feedback_content, status, feedback_status, comments
+    </sql>
+
+</mapper>

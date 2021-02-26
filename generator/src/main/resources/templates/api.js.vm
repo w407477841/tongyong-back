@@ -1,0 +1,21 @@
+import http from '@/axios';
+//新增
+export const insert${entity} = params => {
+    return http.post('#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end/insert', params).then(res => res);
+};
+//修改
+export const update${entity} = params => {
+    return http.post('#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end/update', params).then(res => res);
+};
+//批量删除
+export const delete${entity}s = params => {
+    return http.post('#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end/deletes', params).then(res => res);
+};
+//获取列表
+export const get${entity}s = params => {
+    return http.post('#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end/selectList', params).then(res => res);
+};
+//根据id获取信息
+export const get${entity}ById = params => {
+    return http.post('#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end/get', params).then(res => res);
+};

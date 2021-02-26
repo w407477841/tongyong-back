@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wyf.order.mapper.OrderRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.wyf.order.entity.OrderRecord">
+        <id column="id" property="id" />
+    <result column="is_del" property="isDel" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+    <result column="modify_time" property="modifyTime" />
+    <result column="modify_user" property="modifyUser" />
+        <result column="order_no" property="orderNo" />
+        <result column="wx_order_no" property="wxOrderNo" />
+        <result column="card_no" property="cardNo" />
+        <result column="phone" property="phone" />
+        <result column="device_no" property="deviceNo" />
+        <result column="plug_no" property="plugNo" />
+        <result column="order_tag" property="orderTag" />
+        <result column="price" property="price" />
+        <result column="hourage" property="hourage" />
+        <result column="amount" property="amount" />
+        <result column="status" property="status" />
+        <result column="cmd_status" property="cmdStatus" />
+        <result column="comments" property="comments" />
+        <result column="pay_time" property="payTime" />
+        <result column="cmd_send_time" property="cmdSendTime" />
+        <result column="cmd_reply_time" property="cmdReplyTime" />
+        <result column="charging_status" property="chargingStatus"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        is_del,
+        create_time,
+        create_user,
+        modify_time,
+        modify_user,
+        id, order_no,card_no, phone,wx_order_no, device_no, plug_no, order_tag, price, hourage, amount, status, cmd_status, comments, pay_time, cmd_send_time, cmd_reply_time,charging_status
+    </sql>
+
+    <select id="selectOrder" parameterType="java.util.Map" resultType="org.wyf.order.entity.OrderRecord">
+        select t1.*,t2.name as pilename,t3.name as stationname from t_order_record t1 left join t_basic_pile t2 on t1.device_no = t2.device_no
+        left join t_basic_station t3 on t3.id = t2.station_id left join t_sys_user t4 on t4.id = t2.create_user
+        where t1.is_del=0 and t3.org_id IN
+        <foreach collection="map.orgIds" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        <if test="map.key != null and map.key != ''">
+            AND (plug_no LIKE concat('%',#{map.key},'%') OR  device_no LIKE concat('%',#{map.key},'%') OR  order_no LIKE concat('%',#{map.key},'%') )
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

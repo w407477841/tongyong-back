@@ -1,0 +1,75 @@
+###  开发环境 ###
+################  服务端口  ####################
+server:
+  port: 8092
+#  ssl:
+#    key-store: v2x.net.cn.com.jks
+#    key-alias: 1
+#    enabled: true
+#    key-store-password: honghu
+#    key-store-type: JKS
+
+
+
+
+###################  spring  ###################
+spring:
+############### i18n #####################
+#  messages:
+#    encoding: UTF-8
+#    basename: i18n.xywg
+##############数据库######################
+  datasource:
+    url: jdbc:mysql://192.168.100.213:3306/honghu_bc?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=false&rewriteBatchedStatements=true&allowMultiQueries=true&serverTimezone=Hongkong
+    username: root
+    password: 123456
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    timeout: 3000
+    max-idle: 500
+    min-idle: 50
+    active: 2000
+    wait: 1000
+    cahce-names: xywg-sbgl-year-2,xywg-sbgl-day-2,xywg-sbgl-min-30,xywg-sbgl-min-2,xywg-sbgl-hour-2
+    database: 0
+
+
+
+
+###################  mybatis-plus配置  ###################
+mybatis-plus:
+  mapper-locations: classpath*:**/mapper/xml/*.xml
+  typeAliasesPackage: com.honghu.*.entity
+  global-config:
+    banner: false
+
+    db-config:
+      id-type: id_worker  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+      db-column-underline: true
+      refresh-mapper: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+    #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+    #metaObjectHandler: com.xywg.iot.aop.MyMetaObjectHandler
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    com.honghu: info
+
+
+wechat:
+  jscode2session-url: https://api.weixin.qq.com/sns/jscode2session
+  use-sandbox: false
+  appid: wx455be876ba4ad42e
+  mchid: 1550939011
+  appkey: BFJVn3IRdh3RlSBnc11nKQyjaHzK9PeW #正式
+  #appkey: 5749e2edfa68c2544d24ced90be923d9 #沙箱
+  secret: be6d3ea1f4d749e0f96ee64e5a8f6fbf
+

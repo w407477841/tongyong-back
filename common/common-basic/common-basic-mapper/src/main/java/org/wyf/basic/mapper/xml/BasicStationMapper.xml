@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wyf.basic.mapper.BasicStationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.wyf.basic.entity.BasicStation">
+        <id column="id" property="id" />
+    <result column="is_del" property="isDel" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+    <result column="modify_time" property="modifyTime" />
+    <result column="modify_user" property="modifyUser" />
+        <result column="name" property="name" />
+        <result column="address" property="address" />
+        <result column="coordinate" property="coordinate" />
+        <result column="comments" property="comments" />
+        <result column="org_id" property="orgId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        is_del,
+        create_time,
+        create_user,
+        modify_time,
+        modify_user,
+        id, name, address, coordinate, comments, org_id
+    </sql>
+
+    <select id="getOrgInfo" resultType="org.wyf.system.model.Organization">
+        SELECT
+        id,name
+        FROM
+        t_sys_organization
+        WHERE is_del = 0 and level = 3
+        ORDER BY create_time DESC
+    </select>
+
+
+    <select id="selectStationList" parameterType="java.util.Map" resultType="org.wyf.basic.entity.BasicStation">
+        SELECT
+        t1.id,t1.name,t1.address,t1.coordinate,t1.comments,
+        t1.create_time as createTime,
+        t2.name as orgName,t3.name as createUserName
+        FROM
+        t_basic_station t1
+        LEFT JOIN
+        t_sys_organization t2
+        ON t2.id = t1.org_id
+        LEFT JOIN
+        t_sys_user t3
+        ON t3.id = t1.create_user
+        WHERE t1.is_del = 0 AND t1.org_id IN
+        <foreach collection="map.orgIds" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        <if test="map.key != null and map.key != ''">
+            AND (t1.name LIKE concat('%',#{map.key},'%'))
+        </if>
+        ORDER BY t1.create_time DESC
+    </select>
+</mapper>

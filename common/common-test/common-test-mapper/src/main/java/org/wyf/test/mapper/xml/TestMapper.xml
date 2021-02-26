@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wyf.test.mapper.TestMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.wyf.test.entity.Test">
+        <id column="id" property="id" />
+    <result column="is_del" property="isDel" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+    <result column="modify_time" property="modifyTime" />
+    <result column="modify_user" property="modifyUser" />
+        <result column="name" property="name" />
+        <result column="org_id" property="orgId" />
+        <result column="comments" property="comments" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        is_del,
+        create_time,
+        create_user,
+        modify_time,
+        modify_user,
+        id, name, org_id, comments
+    </sql>
+
+</mapper>

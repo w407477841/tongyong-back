@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wyf.basic.mapper.BasicPileMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.wyf.basic.entity.BasicPile">
+        <id column="id" property="id" />
+    <result column="is_del" property="isDel" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+    <result column="modify_time" property="modifyTime" />
+    <result column="modify_user" property="modifyUser" />
+        <result column="station_id" property="stationId" />
+        <result column="name" property="name" />
+        <result column="device_no" property="deviceNo" />
+        <result column="price" property="price" />
+        <result column="status" property="status" />
+        <result column="online" property="online" />
+        <result column="comments" property="comments" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        is_del,
+        create_time,
+        create_user,
+        modify_time,
+        modify_user,
+        comments,
+        id, station_id, name, device_no, price, status, online
+    </sql>
+
+    <select id="selectPileInfo" parameterType="java.util.Map" resultType="org.wyf.basic.entity.BasicPile">
+        SELECT
+        *,
+        (select
+        name
+        from
+        t_sys_user
+        where
+        t_sys_user.id = t_basic_pile.create_user ) as createUserName ,
+        (select
+        name
+        from
+        t_basic_station
+        where
+        t_basic_station.id = t_basic_pile.station_id ) as stationName
+        FROM
+        t_basic_pile
+        WHERE
+        is_del=0
+        AND
+        (select org_id from t_basic_station where t_basic_station.id = t_basic_pile.station_id ) IN
+        <foreach collection="map.orgIds" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        <if test="map.key != null and map.key != ''">
+            AND (name LIKE concat('%',#{map.key},'%') OR  device_no LIKE concat('%',#{map.key},'%'))
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="getStationInfo" resultType="org.wyf.basic.entity.BasicStation">
+        SELECT
+        id,name
+        FROM
+        t_basic_station
+        WHERE is_del = 0
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wyf.basic.mapper.BasicCardMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.wyf.basic.entity.BasicCard">
+        <id column="id" property="id" />
+        <result column="is_del" property="isDel" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="modify_user" property="modifyUser" />
+        <result column="card_no" property="cardNo" />
+        <result column="user_id" property="userId" />
+        <result column="comments" property="comments" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        is_del,
+        create_time,
+        create_user,
+        modify_time,
+        modify_user,
+        id, card_no, user_id, comments, status
+    </sql>
+
+
+    <update id="updateUserid" parameterType="java.util.Map">
+        UPDATE
+        t_basic_card
+        SET user_id = null , status = 0
+        WHERE card_no = #{card_no}
+    </update>
+
+</mapper>

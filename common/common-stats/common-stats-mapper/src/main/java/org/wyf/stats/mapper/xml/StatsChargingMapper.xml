@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wyf.stats.mapper.StatsChargingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.wyf.stats.entity.StatsCharging">
+        <id column="id" property="id" />
+    <result column="is_del" property="isDel" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user" property="createUser" />
+    <result column="modify_time" property="modifyTime" />
+    <result column="modify_user" property="modifyUser" />
+        <result column="station_id" property="stationId" />
+        <result column="org_id" property="orgId" />
+        <result column="amount" property="amount" />
+        <result column="amount0002" property="amount0002" />
+        <result column="amount0204" property="amount0204" />
+        <result column="amount0406" property="amount0406" />
+        <result column="amount0608" property="amount0608" />
+        <result column="amount0810" property="amount0810" />
+        <result column="amount1012" property="amount1012" />
+        <result column="amount1214" property="amount1214" />
+        <result column="amount1416" property="amount1416" />
+        <result column="amount1618" property="amount1618" />
+        <result column="amount1820" property="amount1820" />
+        <result column="amount2022" property="amount2022" />
+        <result column="amount2224" property="amount2224" />
+        <result column="holding_mins" property="holdingMins" />
+        <result column="holding_rate" property="holdingRate" />
+        <result column="free_mins" property="freeMins" />
+        <result column="statistics_day" property="statisticsDay" />
+        <result column="comments" property="comments" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        is_del,
+        create_time,
+        create_user,
+        modify_time,
+        modify_user,
+        id, station_id, org_id, amount, amount0002, amount0204, amount0406, amount0608, amount0810, amount1012, amount1214, amount1416, amount1618, amount1820, amount2022, amount2224, holding_mins, holding_rate, free_mins, statistics_day, comments
+    </sql>
+
+</mapper>
